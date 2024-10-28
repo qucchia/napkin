@@ -81,7 +81,7 @@ For a ``generic'' element of $K$, we expect $k = 1$.
 	Nicely, the formula $a^2-2b^2$ and $2a$ also works when $b=0$.
 \end{example}
 \begin{example}[{Norm of $a+b\sqrt[3] 2+c \sqrt[3] 4$}]
-	Let $\alpha = a+b\sqrt[3] 2+c\sqrt[3] 4 \in \QQ(\sqrt3) = K$.
+	Let $\alpha = a+b\sqrt[3] 2+c\sqrt[3] 4 \in \QQ(\cbrt 2) = K$.
 	As above, if $b \neq 0$ or $c \neq 0$, then $\alpha$ and $K$ have the
 	same degree $3$.
 	The conjugates of $\alpha$ are $a+b\sqrt[3] 2 \omega+c\sqrt[3] 4 \omega^2$
@@ -106,6 +106,7 @@ why is the norm multiplicative?
 To do this, I have to give a new definition of norm and trace.
 
 \begin{remark}
+	\label{remark:norm_equal_product_embeddings}
 	Another way to automatically add the ``corrective factor'' is to use the
 	embeddings of $K$ into $\CC$.
 
@@ -114,9 +115,6 @@ To do this, I have to give a new definition of norm and trace.
 	Then,
 	$\Tr_{K/\QQ}(\alpha) = \sum_{i=1}^d \sigma_i(\alpha)$ and
 	$\Norm_{K/\QQ}(\alpha) = \prod_{i=1}^d \sigma_i(\alpha)$.
-
-	There is exactly $d$ embeddings, regardless of the number of Galois
-	conjugates of $\alpha$.
 \end{remark}
 
 \begin{theorem}[Morally correct definition of norm and trace]
@@ -319,6 +317,7 @@ In fact, we can do better:
 
 The theorem holds true more generally.
 \begin{theorem}[$K = \QQ \cdot \OO_K$]
+	\label{thm:rationalize_denom}
 	Let $K$ be a number field, and let $x \in K$ be any element.
 	Then there exists an integer $n$ such that $nx \in \OO_K$;
 	in other words, \[ x = \frac 1n \alpha \] for some $\alpha \in \OO_K$.
@@ -407,11 +406,7 @@ We claim that in fact, the general picture looks exactly like this.
 	\label{thm:OK_free_Z_module}
 \end{theorem}
 
-(I had a wrong proof here before; the mistake was pointed out 2020-02-12 on
-\url{https://math.stackexchange.com/q/3543641/229197}.
-Three years later, I still haven't bothered to fix it,
-but \url{http://www.jmilne.org/math/CourseNotes/ANT.pdf}
-has a write-up in Proposition 2.29.)
+The proof will be postponed to a later chapter.
 
 This last theorem shows that in many ways $\OO_K$ is a ``lattice'' in $K$.
 That is, for a number field $K$ we can find $\alpha_1$, \dots, $\alpha_n$

@@ -25,7 +25,7 @@ Here is a possibly helpful table of analogies to help you keep track:
 		Operations & $\cdot$ & $+$, $\times$ \\
 		Commutativity & only if abelian & for us, always \\
 		Sub-structure & subgroup & (not discussed) \\
-		Homomorphism & grp hom.\ $G \to H$ & ring hom.\ $R \to S$ \\
+		Homomorphism & grp hom.\ $G \to H$ & ring hom.\ $R \to S$ \\ % codespell:ignore hom
 		Kernel & normal subgroup & ideal \\
 		Quotient & $G/H$ & $R/I$ \\
 	\end{tabular}
@@ -451,10 +451,11 @@ This gives you the usual modular arithmetic!
 \begin{exercise}
 	Earlier, we wrote $\ZZ[i]$ for the Gaussian integers,
 	which was a slight abuse of notation.
-	Convince yourself that this ring
-	could instead be written as $\ZZ[x] / (x^2+1)$,
+	Convince yourself that this ring could instead be written as $\ZZ[x] / (x^2+1)$,
 	if we wanted to be perfectly formal.
 	(We will stick with $\ZZ[i]$ though --- it's more natural.)
+	Here the shorthand $(x^2+1) \defeq (x^2+1) \ZZ[x] = \{ (x^2+1) f \mid f \in \ZZ[x] \}$
+	denotes the ideal of multiples of $x^2+1$ within $\ZZ[x]$.
 
 	Figure out the analogous formalization of $\ZZ[\sqrt[3]{2}]$.
 \end{exercise}
@@ -734,9 +735,23 @@ Please bear with me!
 \begin{problem}
 	Show that $\CC[x] / (x^2-x) \cong \CC \times \CC$.
 	\begin{hint}
-		The isomorphism is given by $x \mapsto (1,0)$
-		and $1-x \mapsto (0,1)$.
+		Show that the map
+		\begin{align*}
+			\CC[x] &\to \CC \times \CC \\
+			p &\mapsto \left( p(0), p(1) \right)
+		\end{align*}
+		is surjective and calculate its kernel.
 	\end{hint}
+	\begin{sol}
+		Note that the map
+		\begin{align*}
+			\CC[x] &\to \CC \times \CC \\
+			p &\mapsto \left( p(0), p(1) \right)
+		\end{align*}
+		is indeed a surjective ring homomorphism.
+		Its kernel consists of those polynomials $p$ such that $p(0) = p(1) = 0$;
+		this is the set of polynomials divisible by both $x$ and $x-1$, so it is $x(x-1)$.
+	\end{sol}
 \end{problem}
 
 \begin{problem}

@@ -93,10 +93,15 @@ Thus, we think of $\alpha_p$ as an element of $V^\vee$;
 \[ \alpha_p \in V^\vee. \]
 
 \begin{remark}
+	[Warning: arc length isn't a $1$-form]
 	You might recall that, in high school calculus, the ``arc-length element'' $ds$ can be
 	integrated along a curve: $\int_c ds$ is the length of the curve $c$.
 
 	This is \emph{not} a $1$-form! More on this later.
+	(To be brief: basically, the issue is that it's not a linear function.
+	In some places you'll see $ds = \sqrt{dx^2 + dy^2}$ written colloquially,
+	which should give you a sense that $ds$ does not behave like a
+	linear thing in $dx$ and $dy$.)
 \end{remark}
 
 Next, we draw pictures of $2$-forms.
@@ -239,8 +244,8 @@ Let $U$ be an open set.
 \begin{definition}
 	We define a \vocab{differential $k$-form} $\alpha$ on $U$
 	to be a smooth (infinitely differentiable) map
-	$\alpha \colon U \to \Lambda^k(V^\vee)$.
-	(Here $\Lambda^k(V^\vee)$ is the wedge product.)
+	$\alpha \colon U \to \bigwedge^k(V^\vee)$.
+	(Here $\bigwedge^k(V^\vee)$ is the wedge product.)
 \end{definition}
 
 Like with $Df$, we'll use $\alpha_p$ instead of $\alpha(p)$.
@@ -261,27 +266,27 @@ Like with $Df$, we'll use $\alpha_p$ instead of $\alpha(p)$.
 			f(p) \cdot \ee_1^\vee \wedge \ee_2^\vee
 			+ g(p) \cdot \ee_1^\vee \wedge \ee_3^\vee
 			+ h(p) \cdot \ee_2^\vee \wedge \ee_3^\vee
-			\in \Lambda^2(V^\vee)
+			\in \bigwedge^2(V^\vee)
 		\]
 		where $f,g,h \colon V \to \RR$ are smooth functions.
 	\end{enumerate}
 \end{example}
 
 Now, by the projection principle (\Cref{thm:project_principle}) we only have to specify
-a function on each of $\binom nk$ basis elements of $\Lambda^k(V^\vee)$.
+a function on each of $\binom nk$ basis elements of $\bigwedge^k(V^\vee)$.
 So, take any basis $\{\ee_i\}$ of $V$, and
-take the usual basis for $\Lambda^k(V^\vee)$ of elements
+take the usual basis for $\bigwedge^k(V^\vee)$ of elements
 \[ \ee_{i_1}^\vee \wedge \ee_{i_2}^\vee \wedge \dots \wedge \ee_{i_k}^\vee. \]
 Thus, a general $k$-form takes the shape
 \[ \alpha_p = \sum_{1 \le i_1 < \dots < i_k \le n}
 	f_{i_1, \dots, i_k}(p) \cdot
 	\ee_{i_1}^\vee \wedge \ee_{i_2}^\vee \wedge \dots \wedge \ee_{i_k}^\vee. \]
 Since this is a huge nuisance to write, we will abbreviate this to just
-\[ \alpha = \sum_I f_I \cdot de_I \]
+\[ \alpha = \sum_I f_I \cdot d\ee_I \]
 where we understand the sum runs over $I = (i_1, \dots, i_k)$,
-and $de_I$ represents $\ee_{i_1}^\vee \wedge \dots \wedge \ee_{i_k}^\vee$.
+and $d\ee_I$ represents $\ee_{i_1}^\vee \wedge \dots \wedge \ee_{i_k}^\vee$.
 
-Now that we have an element $\Lambda^k(V^\vee)$, what can it do?
+Now that we have an element $\bigwedge^k(V^\vee)$, what can it do?
 Well, first let me get the definition on the table, then tell you what it's doing.
 \begin{definition}
 	[How to evaluate a differential form at a point]
@@ -397,12 +402,13 @@ In particular, suppose $V = \RR^n$ and $f(x_1, \dots, x_n) = x_1$
 More generally, we can define the exterior derivative
 in terms of our basis $\ee_1$, \dots, $\ee_n$ as follows:
 \begin{definition}
-If $\alpha = \sum_I f_I de_I$ then we define the \vocab{exterior derivative} as
-\[ d\alpha \defeq \sum_I df_I \wedge de_I
-	= \sum_I \sum_j \fpartial{f_I}{\ee_j} d\ee_j \wedge de_I. \]
+If $\alpha = \sum_I f_I d\ee_I$ then we define the \vocab{exterior derivative} as
+\[ d\alpha \defeq \sum_I df_I \wedge d\ee_I
+	= \sum_I \sum_j \fpartial{f_I}{\ee_j} d\ee_j \wedge d\ee_I. \]
+\label{def:exterior_derivative}
 \end{definition}
-This doesn't depend on the choice of basis.
-(We'll mention a basis-free definition at the end of this section.)
+It turns out this doesn't depend on the choice of basis;
+we'll mention a basis-free definition at the end of this section.
 
 \begin{example}[Computing some exterior derivatives]
 	Let $V = \RR^3$ with standard basis $\ee_1$, $\ee_2$, $\ee_3$.
@@ -456,25 +462,25 @@ In that sense, $d^2 = 0$ is saying something like
 ``the boundary of the boundary is empty''.
 We'll make this precise when we see Stokes' theorem in the next chapter.
 
-\section{Digression: $\Lambda^k(V^\vee)$ versus $(\Lambda^k(V))^\vee$}
+\section{Digression: $\bigwedge^k(V^\vee)$ versus $(\bigwedge^k(V))^\vee$}
 \label{sec:wedge_product_dual}
 
-Earlier on, we remarked that $\Lambda^k(V^\vee) \cong (\Lambda^k(V))^\vee$ canonically, but we
+Earlier on, we remarked that $\bigwedge^k(V^\vee) \cong (\bigwedge^k(V))^\vee$ canonically, but we
 use the former for convenience.
 
 The former notation is indeed more convenient (wedge product of
 two differential form is natural), but it's not clear why \Cref{def:evaluate_differential_form} is
 defined in such a way.
 
-If we used $(\Lambda^k(V))^\vee$ instead, it's trivial to evaluate a differential form:
-For $f \in (\Lambda^k(V))^\vee$ and vectors $v_1, \dots, v_k \in V$, then
+If we used $(\bigwedge^k(V))^\vee$ instead, it's trivial to evaluate a differential form:
+For $f \in (\bigwedge^k(V))^\vee$ and vectors $v_1, \dots, v_k \in V$, then
 \[
 	f(v_1, \dots, v_k) \defeq f(v_1 \wedge \dots \wedge v_k).
 \]
-This is because $f$ naturally takes in an element of $\Lambda^k(V)$ and returns a real number.
+This is because $f$ naturally takes in an element of $\bigwedge^k(V)$ and returns a real number.
 
-But now, it is not clear how we can take $f \in (\Lambda^1(V))^\vee$ and $g \in (\Lambda^1(V))$, and
-return something like $f \wedge g \in (\Lambda^2(V))^\vee$: The natural choice $(v \wedge w
+But now, it is not clear how we can take $f \in (\bigwedge^1(V))^\vee$ and $g \in (\bigwedge^1(V))$, and
+return something like $f \wedge g \in (\bigwedge^2(V))^\vee$: The natural choice $(v \wedge w
 \mapsto f(v) g(w))$ isn't even well-defined!\footnote{You can try it with $f = \ee_1^\vee$ and
 $g = \ee_2^\vee$, evaluate it at $\ee_1 \wedge \ee_2$ and $-\ee_2 \wedge \ee_1$,
 which we know is equal.}
@@ -487,7 +493,7 @@ We have the following diagram:
 \begin{center}
 \begin{tikzcd}
 	T^k(V^\vee) \ar[r, hook, "\phi"] \ar[d, surjective head, "q", shift left] & (T^k(V))^\vee \\
-	\Lambda^k(V^\vee) \ar[u, hook, "\iota", shift left] & (\Lambda^k(V))^\vee \ar[u, hook, "q^\vee"]
+	\bigwedge^k(V^\vee) \ar[u, hook, "\iota", shift left] & (\bigwedge^k(V))^\vee \ar[u, hook, "q^\vee"]
 \end{tikzcd}
 \end{center}
 
@@ -503,30 +509,30 @@ Unlike the situation with the wedge product above, this map is indeed well-defin
 With some manual work, we can check $\phi$ is injective. Because both $T^k(V^\vee)$ and
 $(T^k(V))^\vee$ has dimension $(\dim V)^k$, $\phi$ is bijective.
 
-Next, note that $\Lambda^k(V)$ is just ``$T^k(V)$ but with more relations imposed'',
-there is a natural quotient map $q \colon T^k(V) \surjto \Lambda^k(V)$.
+Next, note that $\bigwedge^k(V)$ is just ``$T^k(V)$ but with more relations imposed'',
+there is a natural quotient map $q \colon T^k(V) \surjto \bigwedge^k(V)$.
 So, the tensors are divided into equivalence classes.
 \begin{example}
 	If $V = \RR^2$, then $T^2(V)$ would have elements such as $\ee_1 \otimes \ee_1$, $\ee_1 \otimes
 	\ee_2$ or $-\ee_2 \otimes \ee_1$.
 
-	Mapping these elements to $\Lambda^2(V)$, we get $\ee_1 \wedge \ee_1 = 0$, and $\ee_1 \wedge
+	Mapping these elements to $\bigwedge^2(V)$, we get $\ee_1 \wedge \ee_1 = 0$, and $\ee_1 \wedge
 	\ee_2 = -\ee_2 \wedge \ee_1$, i.e. $\ee_1 \otimes \ee_2$ and $-\ee_2 \otimes \ee_1$ belongs to
 	the same equivalence class.
 \end{example}
 
-The map $q$ induces a dual map $q^\vee \colon (\Lambda^k(V))^\vee \to (T^k(V))^\vee$.
+The map $q$ induces a dual map $q^\vee \colon (\bigwedge^k(V))^\vee \to (T^k(V))^\vee$.
 \begin{ques}
 	Convince yourself that a function $f \in (T^k(V))^\vee$ belongs to $\img q^\vee$ if and only if
 	$f$ assigns the same value for every element in each equivalence class, as defined above.
 \end{ques}
 
-Thus, we get an isomorphism $q \circ \phi\inv \circ q^\vee \colon (\Lambda^k(V))^\vee \to
-\Lambda^k(V^\vee)$.\footnote{We're using $q$ for both the map $T^k(V) \to \Lambda^k(V)$ and
-$T^k(V^\vee) \to \Lambda^k(V^\vee)$, by abuse of notation.}
+Thus, we get an isomorphism $q \circ \phi\inv \circ q^\vee \colon (\bigwedge^k(V))^\vee \to
+\bigwedge^k(V^\vee)$.\footnote{We're using $q$ for both the map $T^k(V) \to \bigwedge^k(V)$ and
+$T^k(V^\vee) \to \bigwedge^k(V^\vee)$, by abuse of notation.}
 
 To check this is indeed an isomorphism, we will construct its inverse map.
-As defined above, each equivalence class in $T^k(V^\vee)$ (fiber of $g \in \Lambda^k(V^\vee)$)
+As defined above, each equivalence class in $T^k(V^\vee)$ (fiber of $g \in \bigwedge^k(V^\vee)$)
 has multiple elements, but we can find a canonical element by the following:
 \begin{definition}
 	For vector space $V$, and element $f = f_1 \otimes f_2 \otimes \dots \otimes f_k \in T^k(V)$,
@@ -550,11 +556,11 @@ Here, $S_k$ is the permutation group. Notice the similarity with the definition 
 We see that $\Alt f$ is a desirable representative of the equivalence class of $f$ because:
 \begin{itemize}
 	\ii $\Alt (\Alt f) = \Alt f$;
-	\ii $q(f) = q(\Alt f)$ where $q$ is the quotient map $T^k(V) \surjto \Lambda^k(V)$;
+	\ii $q(f) = q(\Alt f)$ where $q$ is the quotient map $T^k(V) \surjto \bigwedge^k(V)$;
 	\ii $\Alt f$ is an \emph{alternating tensor} --- that is, if we swap two adjacent components
 	of $\Alt f$ for each pure tensor, then the whole tensor gets negated.
 \end{itemize}
-Thus it makes sense for us to define $\iota \colon \Lambda^k(V^\vee) \injto T^k(V^\vee)$
+Thus it makes sense for us to define $\iota \colon \bigwedge^k(V^\vee) \injto T^k(V^\vee)$
 that takes each element to the alternating tensor in $T^k(V^\vee)$.
 \begin{example}
 	With the same example as above, $V = \RR^2$, then we get
@@ -586,19 +592,19 @@ which means
 So, a corrective factor $k!$ is needed.
 
 To see how ``difficult'' the wedge product will be if we use the second notation, let $V = \RR^3$,
-$\alpha = dx \wedge dy \in \Lambda^2(V^\vee)$, and $\beta = dz \in \Lambda^1(V^\vee)$.
+$\alpha = dx \wedge dy \in \bigwedge^2(V^\vee)$, and $\beta = dz \in \bigwedge^1(V^\vee)$.
 
-Then, we knows:
+Then, we know:
 \begin{itemize}
 	\ii $\alpha(\ee_1 \wedge \ee_2) = 1$.
 	\ii $\beta(\ee_3) = 1$.
 	\ii We should have $(\alpha \wedge \beta)(\ee_1 \wedge \ee_2 \wedge \ee_3) = 1$.
 \end{itemize}
 The last point is obvious if we let the wedge product be the map $\wedge \colon
-\Lambda^2(V^\vee) \times \Lambda^1(V^\vee) \to \Lambda^3(V^\vee)$.
+\bigwedge^2(V^\vee) \times \bigwedge^1(V^\vee) \to \bigwedge^3(V^\vee)$.
 
-However, if we're given $\alpha$ and $\beta$ as elements of $(\Lambda^2(V))^\vee$ and
-$(\Lambda^1(V))^\vee$ respectively (that is, we can only evaluate $\alpha$ at $v \wedge w$ for $v, w
+However, if we're given $\alpha$ and $\beta$ as elements of $(\bigwedge^2(V))^\vee$ and
+$(\bigwedge^1(V))^\vee$ respectively (that is, we can only evaluate $\alpha$ at $v \wedge w$ for $v, w
 \in V$; and we can only evaluate $\beta$ at $v$ for $v \in V$), then it would be much more difficult
 to write down what $\alpha \wedge \beta$ should be. In fact,
 \[
@@ -610,13 +616,13 @@ to write down what $\alpha \wedge \beta$ should be. In fact,
 You can see that this is a variant of the alternation operator (or the evaluation operation),
 where we compute a weighted average in order to force $\alpha \wedge \beta$ to be alternating.
 
-\section{Tangential remark: $ds$ is not a $1$-form}
-
-As mentioned in a remark earlier, $ds$ is not a
+\section{Tangential remark: Arc length $ds$ is not a $1$-form}
+\label{sec:arc_length_not_one_form}
+As mentioned in a remark earlier, the arc length $ds$ is not a
 $1$-form.\footnote{\url{https://mathoverflow.net/q/90455} has a discussion on this.}
 
-We said earlier that differential form is something you can integrate. You can certainly integrate
-$ds$, but it's not considered a $1$-form!
+We said earlier that differential form is something you can integrate.
+You can certainly integrate $ds$, but it's not considered a $1$-form!
 
 While we can easily check against the definition that $ds$ is not linear
 (\Cref{prob:ds_not_a_form}), it still raises the question that why we would want to
@@ -673,7 +679,7 @@ Formally:
 \begin{definition}[$1$-density]
 	A $1$-density $\omega$ is a function $\RR^2 \times \RR^2 \to \RR$.
 \end{definition}
-We writes $\omega_p(v) \in \RR$.
+We write $\omega_p(v) \in \RR$.
 
 Since only the direction matters, it makes sense to make $\omega$ satisfy
 $\omega_p(\lambda v) = \lambda \omega_p(v)$ for $\lambda \geq 0$.  In particular, $\omega_p(0) = 0$.
